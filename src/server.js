@@ -13,6 +13,7 @@ require('./config/database');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/files', express.static(resolve('tmp', 'uploads')));
+app.use('/assets', express.static(resolve('assets')));
 app.use(routes);
 
 // Assign settings
