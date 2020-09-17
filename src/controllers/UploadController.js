@@ -11,7 +11,7 @@ module.exports = {
   },
   async store(req, res) {
     const { filename: name, size } = req.file;
-    const url = `http://${process.env.HOST}:${process.env.PORT}/files/${name}`
+    const url = `http://${process.env.HOST}:${process.env.PORT}/files/${name}`;
 
     const image = await Image.create({
       name,
@@ -20,5 +20,5 @@ module.exports = {
     });
 
     return res.json(image);
-  }
-}
+  },
+};

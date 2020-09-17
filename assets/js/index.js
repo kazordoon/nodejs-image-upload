@@ -1,4 +1,4 @@
-(function() {
+(function () {
   const [form] = document.forms;
 
   function handleUpload(event) {
@@ -14,7 +14,7 @@
       'image/jpeg',
       'image/pjpeg',
       'image/png',
-      'image/gif'
+      'image/gif',
     ];
 
     const invalidMimeType = !(allowedMimes.includes(file.type));
@@ -25,4 +25,4 @@
   }
 
   form.addEventListener('submit', handleUpload);
-})();
+}());

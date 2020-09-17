@@ -1,6 +1,6 @@
 const express = require('express');
-const routes = require('./routes');
 const { resolve } = require('path');
+const routes = require('./routes');
 
 class App {
   constructor() {
@@ -34,10 +34,10 @@ class App {
     const PORT = this.express.get('PORT');
 
     this.express.listen(PORT, HOST, () => {
-      const serverAddress = `http://${HOST}:${PORT}`
+      const serverAddress = `http://${HOST}:${PORT}`;
       console.log(`Server running on ${serverAddress}`);
     });
   }
 }
 
-module.exports = new App()
+module.exports = new App();

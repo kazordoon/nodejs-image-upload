@@ -14,7 +14,7 @@ module.exports = {
         'image/jpeg',
         'image/pjpeg',
         'image/png',
-        'image/gif'
+        'image/gif',
       ];
 
       if (allowedMimes.includes(file.mimetype)) {
@@ -22,6 +22,6 @@ module.exports = {
       } else {
         cb(new Error('Invalid file type'));
       }
-    }
-  })
-}
+    },
+  }),
+};
