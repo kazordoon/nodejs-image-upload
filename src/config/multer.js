@@ -1,5 +1,6 @@
 const multer = require('multer');
 const { resolve } = require('path');
+const crypto = require('crypto');
 
 module.exports = {
   storage: multer.diskStorage({
@@ -7,7 +8,9 @@ module.exports = {
       cb(null, resolve('tmp', 'uploads'));
     },
     filename(req, file, cb) {
-      cb(null, `${Date.now()}-${file.originalname}`);
+      const hash = crypto.randomBytes(10).toString('hex');
+      const filename = `${hash}-${file.originalname}`;
+      cb(null, filename);
     },
     fileFilter: (req, file, cb) => {
       const allowedMimes = [
