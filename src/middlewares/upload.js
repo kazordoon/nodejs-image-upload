@@ -1,6 +1,14 @@
 const multer = require('multer');
 const multerConfig = require('../config/multer');
 
-const upload = multer(multerConfig);
+module.exports = (fieldName) => (req, res, next) => {
+  const upload = multer(multerConfig);
 
-module.exports = upload;
+  upload.single(fieldName)(req, res, (err) => {
+    if (err) {
+      return res.json({ error: err.message });
+    }
+
+    return next();
+  });
+};

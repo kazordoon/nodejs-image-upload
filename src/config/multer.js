@@ -5,26 +5,35 @@ const crypto = require('crypto');
 module.exports = {
   storage: multer.diskStorage({
     destination(req, file, cb) {
-      cb(null, resolve('tmp', 'uploads'));
+      return cb(null, resolve('tmp', 'uploads'));
     },
     filename(req, file, cb) {
       const hash = crypto.randomBytes(10).toString('hex');
       const filename = `${hash}-${file.originalname}`;
-      cb(null, filename);
+      return cb(null, filename);
     },
   }),
-  fileFilter: (req, file, cb) => {
-    const allowedMimes = [
+  fileFilter(req, file, cb) {
+    const allowedMimeTypes = [
       'image/jpeg',
       'image/pjpeg',
       'image/png',
       'image/gif',
     ];
 
-    if (allowedMimes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Invalid file type'));
+    const invalidFileType = !(allowedMimeTypes.includes(file.mimetype));
+    if (invalidFileType) {
+      const allowedMimeTypesClone = [...allowedMimeTypes];
+      const lastMimeType = allowedMimeTypesClone.pop();
+      let allowedMimeTypesText = allowedMimeTypesClone.join(', ').trim();
+      allowedMimeTypesText += ` and ${lastMimeType}`;
+
+      const error = new Error(
+        `Invalid file type.  The file types allowed are as follows: ${allowedMimeTypesText}`,
+      );
+      return cb(error);
     }
+
+    return cb(null, true);
   },
 };
