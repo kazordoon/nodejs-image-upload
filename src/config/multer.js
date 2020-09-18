@@ -2,6 +2,10 @@ const multer = require('multer');
 const { resolve } = require('path');
 const crypto = require('crypto');
 
+const oneKilobyte = 1024;
+const oneMegabyte = oneKilobyte ** 2;
+const twoMegabytes = oneMegabyte * 2;
+
 module.exports = {
   storage: multer.diskStorage({
     destination(req, file, cb) {
@@ -29,11 +33,14 @@ module.exports = {
       allowedMimeTypesText += ` and ${lastMimeType}`;
 
       const error = new Error(
-        `Invalid file type.  The file types allowed are as follows: ${allowedMimeTypesText}`,
+        `Invalid file type. The file types allowed are as follows: ${allowedMimeTypesText}`,
       );
       return cb(error);
     }
 
     return cb(null, true);
+  },
+  limits: {
+    fileSize: twoMegabytes,
   },
 };

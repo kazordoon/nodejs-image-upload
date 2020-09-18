@@ -19,7 +19,25 @@
 
     const invalidMimeType = !(allowedMimes.includes(file.type));
     if (invalidMimeType) {
-      alert('Invalid file type');
+      const allowedMimeTypesClone = [...allowedMimeTypes];
+      const lastMimeType = allowedMimeTypesClone.pop();
+      let allowedMimeTypesText = allowedMimeTypesClone.join(', ').trim();
+      allowedMimeTypesText += ` and ${lastMimeType}`;
+
+      alert(
+        `Invalid file type.  The file types allowed are as follows: ${allowedMimeTypesText}`,
+      );
+      return event.preventDefault();
+    }
+
+    const oneKilobyte = 1024;
+    const oneMegabyte = oneKilobyte ** 2;
+    const twoMegabytes = oneMegabyte * 2;
+    const maximumLimit = Number(twoMegabytes);
+
+    const fileSizeExceededTheMaximumLimit = file.size > maximumLimit
+    if (fileSizeExceededTheMaximumLimit) {
+      alert('File too large. The file size must be less than 2MB');
       return event.preventDefault();
     }
   }
