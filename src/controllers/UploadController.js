@@ -1,3 +1,5 @@
+const fs = require('fs');
+const { resolve } = require('path');
 const Image = require('../models/Image');
 
 module.exports = {
@@ -20,6 +22,24 @@ module.exports = {
       return res.status(201).json(image);
     } catch (err) {
       return res.status(422).json({ error: 'Could not upload the image.' });
+    }
+  },
+  async destroy(req, res) {
+    try {
+      const { id } = req.params;
+
+      const image = await Image.findById(id);
+      if (!image) {
+        return res.status(404).json({ error: 'File not found.' });
+      }
+
+      const filePath = resolve('tmp', 'uploads', image.name);
+      await fs.promises.unlink(filePath);
+      await image.deleteOne();
+
+      return res.sendStatus(204);
+    } catch (err) {
+      return res.status(422).json({ error: 'Could not delete the image.' });
     }
   },
 };

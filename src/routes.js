@@ -7,5 +7,6 @@ const UploadController = require('./controllers/UploadController');
 
 routes.get('/', UploadController.index);
 routes.post('/', upload('img'), UploadController.store);
+routes.delete('/:id', UploadController.destroy);
 
 module.exports = routes;
