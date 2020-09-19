@@ -12,8 +12,6 @@ class App {
   }
 
   loadSettings() {
-    this.express.set('view engine', 'ejs');
-    this.express.set('views', resolve('src', 'views'));
     this.express.set('PORT', process.env.PORT || 3333);
     this.express.set('HOST', process.env.HOST || 'localhost');
   }

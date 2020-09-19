@@ -1,28 +1,25 @@
 const Image = require('../models/Image');
 
 module.exports = {
-  index(req, res) {
-    return res.render('index');
-  },
-  async listAll(req, res) {
+  async index(req, res) {
     const images = await Image.find().sort();
 
     return res.json(images);
   },
   async store(req, res) {
     try {
-      const { filename: name, size } = req.file;
-      const url = `http://${process.env.HOST}:${process.env.PORT}/files/${name}`;
+      const { filename, size } = req.file;
+      const url = `http://${process.env.HOST}:${process.env.PORT}/files/${filename}`;
 
       const image = await Image.create({
-        name,
+        name: filename,
         size,
         url,
       });
 
-      return res.json(image);
+      return res.status(201).json(image);
     } catch (err) {
-      return res.json({ error: 'Could not upload the image.' });
+      return res.status(422).json({ error: 'Could not upload the image.' });
     }
   },
 };
