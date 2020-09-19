@@ -1,6 +1,6 @@
 {
   "name": "nodejs-image-upload-multer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Aplicação para realizar o upload de imagens localmente.",
   "main": "src/server.js",
   "repository": "https://github.com/kazordoon/nodejs-image-upload-multer.git",
