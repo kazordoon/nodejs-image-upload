@@ -1,22 +1,13 @@
-const multer = require('multer');
-const { resolve } = require('path');
-const crypto = require('crypto');
+const storageTypes = require('./storage');
+
+const storage = storageTypes[process.env.STORAGE_TYPE] || storageTypes.local;
 
 const oneKilobyte = 1024;
 const oneMegabyte = oneKilobyte ** 2;
 const twoMegabytes = oneMegabyte * 2;
 
 module.exports = {
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      return cb(null, resolve('tmp', 'uploads'));
-    },
-    filename(req, file, cb) {
-      const hash = crypto.randomBytes(10).toString('hex');
-      const filename = `${hash}-${file.originalname}`;
-      return cb(null, filename);
-    },
-  }),
+  storage,
   fileFilter(req, file, cb) {
     const allowedMimeTypes = [
       'image/jpeg',

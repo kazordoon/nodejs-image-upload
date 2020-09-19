@@ -10,8 +10,14 @@ module.exports = {
   },
   async store(req, res) {
     try {
-      const { filename, size } = req.file;
-      const url = `http://${process.env.HOST}:${process.env.PORT}/files/${filename}`;
+      const { filename, size, location } = req.file;
+
+      const URLs = {
+        local: `http://${process.env.HOST}:${process.env.PORT}/files/${filename}`,
+        aws_s3: location,
+      };
+
+      const url = URLs[process.env.STORAGE_TYPE];
 
       const image = await Image.create({
         name: filename,
