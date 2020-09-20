@@ -11,13 +11,27 @@ Aplicação feita em Node.js para realizar o upload de imagens.
 ## Instalação
 
 - Clone o repositório: `git clone https://github.com/kazordoon/nodejs-image-upload-multer.git`
+- Entre no diretório do projeto: `cd nodejs-image-upload-multer`
 - Instale as dependências:
-	- NPM: `npm install`
+	- NPM: `npm install` | **OBS**: Se for instalar usando o NPM, remova o arquivo `yarn.lock`
 	- Yarn: `yarn`
 
-## Configuração das variáveis de ambiente
+## Configurações
+
+### Variáveis de ambiente
 
 Copie o arquivo `.env.example` para `.env`, em seguida você deve trocar o valor das variáveis dentro do arquivo `.env` de acordo com o seu ambiente.
+
+### AWS
+
+Se for utilizar o serviço *S3* da AWS, não esqueça de configurar suas credenciais utilizando o `aws-cli`, consulte o site abaixo para mais detalhes:
+
+[https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+
+## Como iniciar o servidor
+
+- NPM: `npm run dev`
+- Yarn: `yarn dev`
 
 ## Exemplos
 
